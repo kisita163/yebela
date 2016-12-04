@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity  {
         mRecyclerView = (RecyclerView) findViewById(R.id.cardList);
         mRecyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setTitle("Demo");
+        collapsingToolbarLayout.setTitleEnabled(false);
         mAdapter = new RecycleAdapter(this);
         //recycler
         //LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity  {
        // getSupportActionBar().setElevation(0f);
 
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         mAdapter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
