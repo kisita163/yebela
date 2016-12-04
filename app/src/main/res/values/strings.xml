@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Yebela</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- content provider -->
+    <string name="content_authority">com.kisita.yebela.app</string>
+    <!-- SyncAdapter related -->
+    <string name="sync_account_type">yebela.kisita.com</string>
+
+    <!-- GCM related stuff -->
+    <string name="GCM_API_KEY">AIzaSyDp3pI3z48saJs1kcgewYIHVHY1S2Ssd3I</string>
+    <string name="SENDER_ID">354849936617</string>
+
+    <!-- preferences -->
+    <string name="yebela_keys">yebela_keys</string>
+    <string name="timestamp">timestamp</string>
+    <string name="update_request">update_request</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
