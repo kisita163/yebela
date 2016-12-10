@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import com.google.android.gms.gcm.GcmListenerService;
-import com.kisita.yebela.MainActivity;
+import com.kisita.yebela.ServicesActivity;
 import com.kisita.yebela.R;
 
 /*
@@ -55,7 +55,7 @@ public class YebelaGCMListenerService extends GcmListenerService {
     private void sendNotification(){
         NotificationManager mNotificationManager =
                 (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        PendingIntent contentIntent = PendingIntent.getActivity(this,0,new Intent(this, MainActivity.class),0);
+        PendingIntent contentIntent = PendingIntent.getActivity(this,0,new Intent(this, ServicesActivity.class),0);
         Bitmap largeIcon =
                 BitmapFactory.decodeResource(this.getResources(),R.mipmap.ic_launcher);
         NotificationCompat.Builder mBuild  =

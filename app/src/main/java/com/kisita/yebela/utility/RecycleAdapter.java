@@ -1,48 +1,54 @@
 package com.kisita.yebela.utility;
 
+import android.app.Activity;
 import android.content.Context;
-import android.graphics.Typeface;
+import android.content.Intent;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-
 import com.kisita.yebela.R;
+import com.kisita.yebela.SearchableActivity;
 
-import java.util.ArrayList;
-import java.util.List;
+import static com.kisita.yebela.R.id.item_title;
 
-/**
- * Created by Nandagopal on 12/1/16.
- */
+
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.GridItemViewHolder> {
     private Context context;
     private AdapterView.OnItemClickListener mOnItemClickListener;
-    public Integer[] mThumbIds = {
+    private Integer[] mThumbIds = {
             R.drawable.restaurant,R.drawable.logement,
             R.drawable.evenements,R.drawable.culture,
             R.drawable.health,R.drawable.loisir,
-            R.drawable.h2,R.drawable.h4
+            R.drawable.h2,R.drawable.taxi
     };
 
-    public String[] mText = {"Restauration","Logements","Evénements","Culture","Santé","Loisirs","Bien-être","Transport"};
+    private String[] mText = {"Restauration",
+                              "Logements",
+                              "Evénements",
+                              "Culture",
+                              "Santé",
+                              "Loisirs",
+                              "Bien-être",
+                              "Transport"};
 
-    /**
+    /*
      * Called when a grid adapter has been called
      *
      * @param context   The context of main activity
      * @param mItemList Detail List of recyclerview grid that contains data
      */
     public RecycleAdapter(Context context) {
+
         this.context = context;
     }
 
 
-    /**
+    /*
      * Called when RecyclerView needs a new {@link GridItemViewHolder} of the given type to represent
      * an item.
      * <p/>
@@ -69,7 +75,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.GridItem
     }
 
 
-    /**
+    /*
      * Called by RecyclerView to display the data at the specified position. This method should
      * update the contents of the {@link GridItemViewHolder#itemView} to reflect the item at the given
      * position.
@@ -90,29 +96,35 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.GridItem
      * @param position The position of the item within the adapter's data set.
      */
     @Override
-    public void onBindViewHolder(GridItemViewHolder holder, int position) {
+    public void onBindViewHolder(final GridItemViewHolder holder, int position) {
         holder.mTitle.setText(mText[position]);
         holder.mImage.setImageResource(mThumbIds[position]);
+
+        this.mOnItemClickListener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(context, SearchableActivity.class);
+                // Pass data object in the bundle and populate details activity.
+                intent.putExtra("title",mText[i]);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation((Activity)context,holder.mTitle, "profile");
+                context.startActivity(intent, options.toBundle()); // // TODO: 09-12-16
+            }
+        };
     }
 
-    /**
+
+    /*
      * Returns the total number of items in the data set hold by the adapter.
      *
      * @return The total number of items in this adapter.
      */
+
     @Override
     public int getItemCount() {
         return mText.length;
     }
 
-    /**
-     * Called when a grid item has been called
-     *
-     * @param onItemClickListener The view that was clicked.
-     */
-    public void setOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener) {
-        this.mOnItemClickListener = onItemClickListener;
-    }
 
     private void onItemHolderClick(GridItemViewHolder itemHolder) {
         if (mOnItemClickListener != null) {
@@ -122,22 +134,22 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.GridItem
     }
 
 
-    public class GridItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView mTitle;
-        public ImageView mImage;
-        public RecycleAdapter mAdapter;
+    class GridItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView mTitle;
+        ImageView mImage;
+        RecycleAdapter mAdapter;
 
-        public GridItemViewHolder(View itemView, RecycleAdapter mAdapter) {
+        GridItemViewHolder(View itemView, RecycleAdapter mAdapter) {
             super(itemView);
             this.mAdapter = mAdapter;
-            Typeface face= Typeface.createFromAsset(context.getAssets(), "orange_juice.ttf");
-            mTitle = (TextView) itemView.findViewById(R.id.item_title);
+            //Typeface face= Typeface.createFromAsset(context.getAssets(), "orange_juice.ttf");
+            mTitle = (TextView) itemView.findViewById(item_title);
             mImage = (ImageView) itemView.findViewById(R.id.item_image);
            // mTitle.setTypeface(face);
             itemView.setOnClickListener(this);
         }
 
-        /**
+        /*
          * Called when a view has been clicked.
          *
          * @param v The view that was clicked.

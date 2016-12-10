@@ -19,4 +19,15 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_place">Search a place</string>
+
+    <string name="restauration">Restauration</string>
+    <string name="lodging">Logements</string>
+    <string name="events">Evénements</string>
+    <string name="culture">Culture</string>
+    <string name="health">Santé</string>
+    <string name="spare_time">Loisirs</string>
+    <string name="well_being">Bien-être</string>
+    <string name="transport">Transport</string>
+
 </resources>

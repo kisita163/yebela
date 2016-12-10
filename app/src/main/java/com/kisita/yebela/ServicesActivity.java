@@ -1,21 +1,16 @@
 package com.kisita.yebela;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -26,9 +21,9 @@ import com.kisita.yebela.utility.RecycleAdapter;
 import static com.kisita.yebela.sync.YebelaSyncAdapter.initializeSyncAdapter;
 
 
-public class MainActivity extends AppCompatActivity  {
-    private static final String TAG = "MainActivity";
-    CollapsingToolbarLayout collapsingToolbarLayout;
+public class ServicesActivity extends AppCompatActivity  {
+    private static final String TAG = "ServicesActivity";
+    //CollapsingToolbarLayout collapsingToolbarLayout;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private RecyclerView mRecyclerView;
     private RecycleAdapter mAdapter;
@@ -37,16 +32,13 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_services);
         mRecyclerView = (RecyclerView) findViewById(R.id.cardList);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setTitleEnabled(false);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(ServicesActivity.this, 2));
+        //collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        //collapsingToolbarLayout.setTitleEnabled(false);
         mAdapter = new RecycleAdapter(this);
         //recycler
-        //LinearLayoutManager llm = new LinearLayoutManager(this);
-        //llm.setOrientation(LinearLayoutManager.VERTICAL);
-        //mRecyclerView.setLayoutManager(llm);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
@@ -55,13 +47,6 @@ public class MainActivity extends AppCompatActivity  {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        mAdapter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                makeToast("Item "+position+" pressed." );
-            }
-        });
 
         initializeSyncAdapter(this);
 
@@ -81,25 +66,13 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -121,7 +94,14 @@ public class MainActivity extends AppCompatActivity  {
         }
         return true;
     }
-    private void makeToast(String input) {
-        Toast.makeText(this, input, Toast.LENGTH_SHORT).show();
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+
+
+
+        return true;
     }
 }
