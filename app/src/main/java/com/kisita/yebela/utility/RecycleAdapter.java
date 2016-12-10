@@ -107,7 +107,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.GridItem
                 // Pass data object in the bundle and populate details activity.
                 intent.putExtra("title",mText[i]);
                 ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation((Activity)context,holder.mTitle, "profile");
+                        makeSceneTransitionAnimation((Activity)context,view.findViewById(R.id.item_title), "profile");
                 context.startActivity(intent, options.toBundle()); // // TODO: 09-12-16
             }
         };
@@ -124,7 +124,6 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.GridItem
     public int getItemCount() {
         return mText.length;
     }
-
 
     private void onItemHolderClick(GridItemViewHolder itemHolder) {
         if (mOnItemClickListener != null) {
