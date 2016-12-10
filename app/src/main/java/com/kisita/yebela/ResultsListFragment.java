@@ -40,6 +40,17 @@ public class ResultsListFragment extends Fragment implements LoaderManager.Loade
             PlacesContract.PlaceEntry.COLUMN_PHONE_NUMBER,
             PlacesContract.PlaceEntry.COLUMN_PLACE_ID
     };
+    private static final String[] QUERY_TYPE = new String[] {
+            "Restaurant",
+            "Lodging",
+            "Event",
+            "culture",
+            "Health",
+            "Spare-time",
+            "Well-being",
+            "Transport"
+    };
+
     private ResultFragmentAdapter mMainAdapter;
 
     public ResultsListFragment() {
@@ -79,12 +90,14 @@ public class ResultsListFragment extends Fragment implements LoaderManager.Loade
         // This is called when a new Loader needs to be created.  This
         // fragment only uses one loader, so we don't care about checking the id.
         Uri PlacesUri = PlacesContract.PlaceEntry.CONTENT_URI;
+        String selection = PlacesContract.PlaceEntry.COLUMN_TYPE + " = ?";
+        String[] selectionArgs = { QUERY_TYPE[getArguments().getInt(getString(R.string.service_id))] };
 
         return new CursorLoader(getActivity(),
                 PlacesUri,
                 PLACES_COLUMNS,
-                null,
-                null,
+                selection,
+                selectionArgs,
                 null);
     }
 

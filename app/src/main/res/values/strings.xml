@@ -29,5 +29,6 @@
     <string name="spare_time">Loisirs</string>
     <string name="well_being">Bien-être</string>
     <string name="transport">Transport</string>
+    <string name="service_id">ServiceId</string>
 
 </resources>

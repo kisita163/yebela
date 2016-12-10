@@ -23,8 +23,8 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.GridItem
     private Integer[] mThumbIds = {
             R.drawable.restaurant,R.drawable.logement,
             R.drawable.evenements,R.drawable.culture,
-            R.drawable.health,R.drawable.loisir,
-            R.drawable.h2,R.drawable.taxi
+            R.drawable.health1,R.drawable.loisirs_2,
+            R.drawable.wellbeing1,R.drawable.taxi
     };
 
     private String[] mText = {"Restauration",
@@ -106,6 +106,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.GridItem
                 Intent intent = new Intent(context, ResultsActivity.class);
                 // Pass data object in the bundle and populate details activity.
                 intent.putExtra("title",mText[i]);
+                intent.putExtra(context.getString(R.string.service_id),i);
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation((Activity)context,view.findViewById(R.id.item_title), "profile");
                 context.startActivity(intent, options.toBundle()); // // TODO: 09-12-16
