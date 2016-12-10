@@ -2,6 +2,7 @@ package com.kisita.yebela;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -23,7 +24,7 @@ import static com.kisita.yebela.sync.YebelaSyncAdapter.initializeSyncAdapter;
 
 public class ServicesActivity extends AppCompatActivity  {
     private static final String TAG = "ServicesActivity";
-    //CollapsingToolbarLayout collapsingToolbarLayout;
+    //private CollapsingToolbarLayout collapsingToolbarLayout;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private RecyclerView mRecyclerView;
     private RecycleAdapter mAdapter;
@@ -33,20 +34,8 @@ public class ServicesActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_services);
-        mRecyclerView = (RecyclerView) findViewById(R.id.cardList);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(ServicesActivity.this, 2));
-        //collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        //collapsingToolbarLayout.setTitleEnabled(false);
-        mAdapter = new RecycleAdapter(this);
-        //recycler
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(mAdapter);
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
-
-       // getSupportActionBar().setElevation(0f);
-
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        setRecyclerView();
+        setActionBar();
 
         initializeSyncAdapter(this);
 
@@ -99,9 +88,24 @@ public class ServicesActivity extends AppCompatActivity  {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
-
-
-
         return true;
+    }
+
+
+    private void setRecyclerView(){
+        mRecyclerView = (RecyclerView) findViewById(R.id.cardList);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(ServicesActivity.this, 2));
+        mAdapter = new RecycleAdapter(this);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+
+    private void setActionBar(){
+        //collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        //collapsingToolbarLayout.setTitleEnabled(false);
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 }

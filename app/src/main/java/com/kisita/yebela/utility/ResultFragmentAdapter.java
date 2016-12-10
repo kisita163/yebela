@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.kisita.yebela.R;
 import java.util.Random;
 
-public class MainFragmentAdapter extends CursorAdapter implements Filterable {
+public class ResultFragmentAdapter extends CursorAdapter implements Filterable {
 
     private static class ViewHolder {
         final ImageView iconView;
@@ -35,7 +35,7 @@ public class MainFragmentAdapter extends CursorAdapter implements Filterable {
         }
     }
 
-    public MainFragmentAdapter(Context context, Cursor c, int flags) {
+    public ResultFragmentAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
     }
 

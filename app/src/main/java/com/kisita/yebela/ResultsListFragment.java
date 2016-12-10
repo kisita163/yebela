@@ -14,13 +14,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.kisita.yebela.data.PlacesContract;
-import com.kisita.yebela.utility.MainFragmentAdapter;
+import com.kisita.yebela.utility.ResultFragmentAdapter;
 
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+public class ResultsListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
     private ListView mListView;
 
@@ -40,9 +40,9 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
             PlacesContract.PlaceEntry.COLUMN_PHONE_NUMBER,
             PlacesContract.PlaceEntry.COLUMN_PLACE_ID
     };
-    private MainFragmentAdapter mMainAdapter;
+    private ResultFragmentAdapter mMainAdapter;
 
-    public MainActivityFragment() {
+    public ResultsListFragment() {
     }
 
     @Override
@@ -56,10 +56,10 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView =  inflater.inflate(R.layout.fragment_results, container, false);
         // The ForecastAdapter will take data from a source and
         // use it to populate the ListView it's attached to.
-        mMainAdapter = new MainFragmentAdapter(getActivity(), null, 0);
+        mMainAdapter = new ResultFragmentAdapter(getActivity(), null, 0);
         // Get the reference of our list view an attach an adapter to it
 
         mListView = (ListView) rootView.findViewById(R.id.testList);

@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.kisita.yebela.R;
-import com.kisita.yebela.SearchableActivity;
+import com.kisita.yebela.ResultsActivity;
 
 import static com.kisita.yebela.R.id.item_title;
 
@@ -103,7 +103,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.GridItem
         this.mOnItemClickListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(context, SearchableActivity.class);
+                Intent intent = new Intent(context, ResultsActivity.class);
                 // Pass data object in the bundle and populate details activity.
                 intent.putExtra("title",mText[i]);
                 ActivityOptionsCompat options = ActivityOptionsCompat.
