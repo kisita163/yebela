@@ -30,5 +30,6 @@
     <string name="well_being">Bien-être</string>
     <string name="transport">Transport</string>
     <string name="service_id">ServiceId</string>
+    <string name="title_activity_service_choices">ServiceChoicesActivity</string>
 
 </resources>
