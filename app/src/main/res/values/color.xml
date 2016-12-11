@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="yebela_primary_light">#6b63b4</color>
+    <color name="yebela_primary_light">#7782f7</color>
     <color name="yebela_primary_color">#4e47a6</color>
     <color name="yebela_primary_dark">#2d2c9e</color>
+
+    <color name="yebela_red">#e60f1a</color>
+    <color name="yebela_yellow">#e7d617</color>
+    <color name="yebela_green">#17e744</color>
+    <color name="yebela_blue">#7782f7</color>
 </resources>
