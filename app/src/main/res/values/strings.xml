@@ -31,5 +31,6 @@
     <string name="transport">Transport</string>
     <string name="service_id">ServiceId</string>
     <string name="title_activity_service_choices">ServiceChoicesActivity</string>
+    <string name="distance">distance</string>
 
 </resources>

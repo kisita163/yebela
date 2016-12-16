@@ -23,15 +23,15 @@ public class ResultFragmentAdapter extends CursorAdapter implements Filterable {
         final ImageView iconView;
         final TextView placeView;
         final TextView cityView;
-        final TextView typeView;
-        final TextView numberView;
+        //final TextView typeView;
+        //final TextView numberView;
 
         ViewHolder(View view) {
             iconView = (ImageView) view.findViewById(R.id.resultImage);
             placeView = (TextView) view.findViewById(R.id.resultName);
-            cityView = (TextView) view.findViewById(R.id.resultCity);
-            typeView = (TextView) view.findViewById(R.id.resultType);
-            numberView = (TextView) view.findViewById(R.id.resultNumber);
+            cityView = (TextView) view.findViewById(R.id.resultVicinity);
+            //typeView = (TextView) view.findViewById(R.id.resultType);
+            //numberView = (TextView) view.findViewById(R.id.resultNumber);
         }
     }
 
@@ -54,20 +54,20 @@ public class ResultFragmentAdapter extends CursorAdapter implements Filterable {
     public void bindView(View view, Context context, Cursor cursor) {
         ViewHolder viewHolder = (ViewHolder) view.getTag();
         String name = cursor.getString(1);
-        String city = cursor.getString(2);
-        String type = cursor.getString(7);
-        String number = cursor.getString(10);
+        String city = cursor.getString(8);
+        //String type = cursor.getString(7);
+        //String number = cursor.getString(10);
 
         viewHolder.placeView.setText(name);
         viewHolder.cityView.setText(city);
-        viewHolder.typeView.setText(type);
-        viewHolder.numberView.setText(number);
-        viewHolder.iconView.setBackgroundColor(generateColor());
+        //viewHolder.typeView.setText(type);
+        //viewHolder.numberView.setText(number);
+        viewHolder.iconView.setBackgroundColor(Color.parseColor("#ff91a2a4"));
     }
 
-    private int generateColor()
+    /*private int generateColor()
     {
         Random rnd = new Random();
         return (Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
-    }
+    }*/
 }

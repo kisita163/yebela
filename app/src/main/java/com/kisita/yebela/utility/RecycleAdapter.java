@@ -25,7 +25,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.GridItem
             R.drawable.restaurant,R.drawable.logement,
             R.drawable.evenements,R.drawable.culture,
             R.drawable.health1,R.drawable.loisirs_2,
-            R.drawable.wellbeing1,R.drawable.taxi
+            R.drawable.wellbeing1,R.drawable.transport
     };
 
     private String[] mText = {"Restauration",
