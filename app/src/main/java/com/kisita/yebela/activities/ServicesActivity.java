@@ -146,6 +146,18 @@ public class ServicesActivity extends AppCompatActivity  implements GoogleApiCli
     }
 
     @Override
+    protected void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
+    }
+
+    @Override
+    protected void onStart() {
+        mGoogleApiClient.connect();
+        super.onStart();
+    }
+
+    @Override
     public void onConnected(@Nullable Bundle bundle) {
         Log.i("Yebela","connected to google play services ");
     }
