@@ -1,7 +1,9 @@
-package com.kisita.yebela;
+package com.kisita.yebela.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,6 +16,9 @@ import android.view.MenuItem;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+import com.kisita.yebela.R;
 import com.kisita.yebela.gcm.QuickstartPreferences;
 import com.kisita.yebela.gcm.RegistrationIntentService;
 import com.kisita.yebela.utility.RecycleAdapter;
@@ -21,13 +26,14 @@ import com.kisita.yebela.utility.RecycleAdapter;
 import static com.kisita.yebela.sync.YebelaSyncAdapter.initializeSyncAdapter;
 
 
-public class ServicesActivity extends AppCompatActivity  {
+public class ServicesActivity extends AppCompatActivity  implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener{
     private static final String TAG = "ServicesActivity";
     //private CollapsingToolbarLayout collapsingToolbarLayout;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private RecyclerView mRecyclerView;
     private RecycleAdapter mAdapter;
     private Toolbar toolbar;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +41,7 @@ public class ServicesActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_services);
         setRecyclerView();
         setActionBar();
-
+        createGoogleApiClient();
         initializeSyncAdapter(this);
 
         Log.i(TAG,"Try to start registration service");
@@ -68,6 +74,16 @@ public class ServicesActivity extends AppCompatActivity  {
             //onSearchRequested();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void createGoogleApiClient() {
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
     }
 
     /*
@@ -127,5 +143,20 @@ public class ServicesActivity extends AppCompatActivity  {
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        Log.i("Yebela","connected to google play services ");
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.i("Yebela","connection to google play services suspended");
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.i("Yebela","connection to google play services failed");
     }
 }

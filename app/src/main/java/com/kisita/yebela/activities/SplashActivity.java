@@ -1,4 +1,4 @@
-package com.kisita.yebela;
+package com.kisita.yebela.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

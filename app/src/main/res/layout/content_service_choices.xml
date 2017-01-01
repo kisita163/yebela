@@ -12,7 +12,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.kisita.yebela.ServiceChoicesActivity"
+        tools:context="com.kisita.yebela.activities.ServiceChoicesActivity"
         tools:showIn="@layout/activity_service_choices">
 
         <com.daimajia.slider.library.SliderLayout

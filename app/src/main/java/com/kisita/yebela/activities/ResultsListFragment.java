@@ -1,4 +1,4 @@
-package com.kisita.yebela;
+package com.kisita.yebela.activities;
 
 import android.support.v4.app.LoaderManager;
 import android.database.Cursor;
@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.kisita.yebela.R;
 import com.kisita.yebela.data.PlacesContract;
 import com.kisita.yebela.utility.ResultAdapter;
 

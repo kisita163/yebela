@@ -20,13 +20,13 @@
             android:name="android.app.default_searchable"
             android:value=".SearchActivity" />
         <activity
-            android:name=".ServicesActivity"
+            android:name=".activities.ServicesActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity
-            android:name=".ResultsActivity"
+            android:name=".activities.ResultsActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <provider
@@ -89,7 +89,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -98,10 +98,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ServiceChoicesActivity"
+            android:name=".activities.ServiceChoicesActivity"
             android:label="@string/title_activity_service_choices"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".SearchActivity">
+        <activity android:name=".activities.SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>

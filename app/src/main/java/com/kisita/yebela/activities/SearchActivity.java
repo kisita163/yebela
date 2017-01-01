@@ -1,4 +1,4 @@
-package com.kisita.yebela;
+package com.kisita.yebela.activities;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.kisita.yebela.R;
 import com.kisita.yebela.data.PlacesContract;
 import com.kisita.yebela.utility.ResultAdapter;
 

@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.kisita.yebela.R;
-import com.kisita.yebela.ServiceChoicesActivity;
+import com.kisita.yebela.activities.ServiceChoicesActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

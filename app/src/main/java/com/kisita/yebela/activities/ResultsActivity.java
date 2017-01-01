@@ -1,9 +1,11 @@
-package com.kisita.yebela;
+package com.kisita.yebela.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+
+import com.kisita.yebela.R;
 
 public class ResultsActivity extends AppCompatActivity{
     private Toolbar toolbar;
