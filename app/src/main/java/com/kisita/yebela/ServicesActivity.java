@@ -2,7 +2,6 @@ package com.kisita.yebela;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -62,6 +61,12 @@ public class ServicesActivity extends AppCompatActivity  {
         if (id == R.id.action_settings) {
             return true;
         }
+
+        if(id == R.id.search_icon){
+            Intent search = new Intent(this,SearchActivity.class);
+            startActivity(search);
+            //onSearchRequested();
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -87,7 +92,22 @@ public class ServicesActivity extends AppCompatActivity  {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        inflater.inflate(R.menu.menu_services, menu);
+
+        /*SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));*/
+       /* MenuItem search_icon = menu.findItem(R.id.search_icon);
+        search_icon.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                return false;
+            }
+        });*/
         return true;
     }
 

@@ -10,7 +10,7 @@ import com.kisita.yebela.data.PlacesContract.PlaceEntry;
 public class PlacesDbHelper  extends SQLiteOpenHelper{
 
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 7;
 
     static final String DATABASE_NAME = "places.db";
 

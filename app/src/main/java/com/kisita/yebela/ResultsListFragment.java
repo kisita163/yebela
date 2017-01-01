@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.kisita.yebela.data.PlacesContract;
-import com.kisita.yebela.utility.ResultFragmentAdapter;
+import com.kisita.yebela.utility.ResultAdapter;
 
 
 /**
@@ -51,7 +51,7 @@ public class ResultsListFragment extends Fragment implements LoaderManager.Loade
             "Transport"
     };
 
-    private ResultFragmentAdapter mMainAdapter;
+    private ResultAdapter mMainAdapter;
 
     public ResultsListFragment() {
     }
@@ -60,7 +60,7 @@ public class ResultsListFragment extends Fragment implements LoaderManager.Loade
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Add this line in order for this fragment to handle menu events.
-
+        getLoaderManager().initLoader(0, null, this);
         setHasOptionsMenu(true);
     }
 
@@ -70,7 +70,7 @@ public class ResultsListFragment extends Fragment implements LoaderManager.Loade
         View rootView =  inflater.inflate(R.layout.fragment_results, container, false);
         // The ForecastAdapter will take data from a source and
         // use it to populate the ListView it's attached to.
-        mMainAdapter = new ResultFragmentAdapter(getActivity(), null, 0);
+        mMainAdapter = new ResultAdapter(getActivity(), null, 0);
         // Get the reference of our list view an attach an adapter to it
 
         mListView = (ListView) rootView.findViewById(R.id.testList);

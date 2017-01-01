@@ -22,7 +22,7 @@ import com.squareup.okhttp.RequestBody;
 
 public class RegistrationIntentService extends IntentService {
     private static final String TAG = "RegIntentService";
-    private static final String REGISTER_URL = "http://192.168.1.40/gcm/register.php";
+    private static final String REGISTER_URL = "http://192.168.1.42/gcm/register.php";
     private static final String KEY_TOKEN = "gcm_token";
 
     public RegistrationIntentService() {
@@ -62,6 +62,7 @@ public class RegistrationIntentService extends IntentService {
             // If an exception happens while fetching the new token or updating our registration data
             // on a third-party server, this ensures that we'll attempt the update at a later time.
             editor.putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER,false).apply();
+            onHandleIntent(intent);
         }
         // Notify UI that registration has completed, so the progress indicator can be hidden.
         Intent registrationComplete = new Intent(QuickstartPreferences.REGISTRATION_COMPLETE);

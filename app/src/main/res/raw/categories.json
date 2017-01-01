@@ -1,0 +1,204 @@
+[
+  {
+    "name": "Restoration",
+    "picture": "restaurant",
+    "categories": [
+      {
+        "name": "Bars",
+        "picture": "bar_cafe"
+      },
+      {
+        "name": "Restaurants",
+        "picture": "restaurant_icon"
+      },
+      {
+        "name": "Bakeries",
+        "picture": "bakery_icon"
+      },
+      {
+        "name": "Foods",
+        "picture": "supermarket_icon"
+      },
+      {
+        "name": "Home deliveries",
+        "picture": "delivery_icon"
+      }
+    ]
+  },
+  {
+    "name": "Lodging",
+    "picture":"logement",
+    "categories": [
+      {
+        "name": "Hotels",
+        "picture": "hotel_icon"
+      },
+      {
+        "name": "Rental",
+        "picture": "rent_icon"
+      },
+      {
+        "name": "Sale",
+        "picture": "sale_icon"
+      },
+      {
+        "name": "Apartment hotels",
+        "picture": "apartment_icon"
+      }
+    ]
+  },
+  {
+    "name": "Events",
+    "picture":"evenements",
+    "categories": [
+      {
+        "name": "Festivals",
+        "picture": "festival_icon"
+      },
+      {
+        "name": "Sport meetings",
+        "picture": "sport_meeting_icon"
+      },
+      {
+        "name": "Conferences",
+        "picture": "conferences_icon"
+      },
+      {
+        "name": "Fashion shows",
+        "picture": "fashion_show_icon"
+      },
+      {
+        "name": "Concerts",
+        "picture": "concert_icon"
+      },
+      {
+        "name": "Expositions",
+        "picture": "exposition_icon"
+      },
+      {
+        "name": "Private sales",
+        "picture": "private_sale_icon"
+      }
+    ]
+  },
+  {
+    "name": "Culture",
+    "picture":"culture",
+    "categories": [
+      {
+        "name": "Museums",
+        "picture": "museum_icon"
+      },
+      {
+        "name": "Libraries & Bookstores",
+        "picture": "library_icon"
+      },
+      {
+        "name": "Theaters",
+        "picture": "theater_icon"
+      },
+      {
+        "name": "Crafts",
+        "picture": "craft_icon"
+      },
+      {
+        "name": "History",
+        "picture": "history_icon"
+      }
+    ]
+  },
+  {
+    "name": "Health",
+    "picture":"health1",
+    "categories": [
+      {
+        "name": "Pharmacies",
+        "picture": "pharmacy_icon"
+      },
+      {
+        "name": "Hospitals",
+        "picture": "hospital_icon"
+      },
+      {
+        "name": "General practitioners",
+        "picture": "home_physician_icon"
+      },
+      {
+        "name": "Traditional care",
+        "picture": "traditional_care_icon"
+      }
+    ]
+  },
+  {
+    "name": "Spare-time",
+    "picture":"loisirs_2",
+    "categories": [
+      {
+        "name": "Sport centers",
+        "picture": "sport_icon"
+      },
+      {
+        "name": "Night clubs",
+        "picture": "night_club_icon"
+      },
+      {
+        "name": "Shopping",
+        "picture": "shopping_icon"
+      },
+      {
+        "name": "Parcs",
+        "picture": "parc_icon"
+      },
+      {
+        "name": "Zoo",
+        "picture": "zoo_icon"
+      },
+      {
+        "name": "Amusement parcs",
+        "picture": "amusement_park_icon"
+      },
+      {
+        "name": "Dance school",
+        "picture": "dance_school_icon"
+      }
+    ]
+  },
+  {
+    "name": "Well-being",
+    "picture":"wellbeing1",
+    "categories": [
+      {
+        "name": "Hair salon",
+        "picture": "hair_salon_icon"
+      },
+      {
+        "name": "Beauty institute",
+        "picture": "beauty_institut"
+      },
+      {
+        "name": "Spa & massage",
+        "picture": "massage_icon"
+      }
+    ]
+  },
+
+  {
+    "name": "Transport",
+    "picture":"transport",
+    "categories": [
+      {
+        "name": "Taxi",
+        "picture": "taxi_icon"
+      },
+      {
+        "name": "Public transport",
+        "picture": "public_transport_icon"
+      },
+      {
+        "name": "Car rental",
+        "picture": "car_rental_icon"
+      }
+    ]
+  }
+
+  ]

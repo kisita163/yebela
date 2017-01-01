@@ -1,9 +1,8 @@
 package com.kisita.yebela.utility;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.ActivityOptionsCompat;
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,42 +11,69 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.kisita.yebela.R;
-import com.kisita.yebela.ResultsActivity;
 import com.kisita.yebela.ServiceChoicesActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import static com.kisita.yebela.R.id.item_title;
 
 
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.GridItemViewHolder> {
     private Context context;
+    private final Resources mResources;
     private AdapterView.OnItemClickListener mOnItemClickListener;
-    private Integer[] mThumbIds = {
-            R.drawable.restaurant,R.drawable.logement,
-            R.drawable.evenements,R.drawable.culture,
-            R.drawable.health1,R.drawable.loisirs_2,
-            R.drawable.wellbeing1,R.drawable.transport
-    };
-
-    private String[] mText = {"Restauration",
-                              "Logements",
-                              "Evénements",
-                              "Culture",
-                              "Santé",
-                              "Loisirs",
-                              "Bien-être",
-                              "Transport"};
+    private ArrayList<String> servicePicture = new ArrayList<>();
+    private ArrayList<String> serviceName = new ArrayList<>();
 
     /*
      * Called when a grid adapter has been called
      *
      * @param context   The context of main activity
-     * @param mItemList Detail List of recyclerview grid that contains data
      */
     public RecycleAdapter(Context context) {
 
         this.context = context;
+        mResources = context.getResources();
+        initStringArrays();
     }
 
+    private void initStringArrays() {
+        JSONArray jsonArray;
+        JSONObject category;
+        try {
+            jsonArray = new JSONArray(readCategoriesFromResources());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                category = jsonArray.getJSONObject(i);
+                serviceName.add(category.getString(JsonAttributes.NAME));
+                servicePicture.add(category.getString(JsonAttributes.PICTURE));
+                System.out.println("#####name = "+category.getString(JsonAttributes.NAME));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String readCategoriesFromResources() throws IOException {
+        StringBuilder categoriesJson = new StringBuilder();
+        InputStream rawCategories = mResources.openRawResource(R.raw.categories);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(rawCategories));
+        String line;
+
+        while ((line = reader.readLine()) != null) {
+            categoriesJson.append(line);
+        }
+        return categoriesJson.toString();
+    }
 
     /*
      * Called when RecyclerView needs a new {@link GridItemViewHolder} of the given type to represent
@@ -98,19 +124,19 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.GridItem
      */
     @Override
     public void onBindViewHolder(final GridItemViewHolder holder, int position) {
-        holder.mTitle.setText(mText[position]);
-        holder.mImage.setImageResource(mThumbIds[position]);
+        holder.mTitle.setText(serviceName.get(position));
+        holder.mImage.setImageResource(context.getResources().getIdentifier(servicePicture.get(position),"drawable",context.getPackageName()));
 
         this.mOnItemClickListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(context,ServiceChoicesActivity.class);
                 // Pass data object in the bundle and populate details activity.
-                intent.putExtra("title",mText[i]);
+                intent.putExtra("title", serviceName.get(i));
                 intent.putExtra(context.getString(R.string.service_id),i);
-                ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation((Activity)context,view.findViewById(R.id.item_title), "profile");
-                context.startActivity(intent, options.toBundle()); // // TODO: 09-12-16
+                //ActivityOptionsCompat options = ActivityOptionsCompat.
+                //        makeSceneTransitionAnimation((Activity)context,view.findViewById(R.id.item_title), "profile");
+                context.startActivity(intent);//, options.toBundle()); // // TODO: 09-12-16
             }
         };
     }
@@ -124,7 +150,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.GridItem
 
     @Override
     public int getItemCount() {
-        return mText.length;
+        return serviceName.size();
     }
 
     private void onItemHolderClick(GridItemViewHolder itemHolder) {

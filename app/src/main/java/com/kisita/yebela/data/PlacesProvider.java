@@ -1,5 +1,6 @@
 package com.kisita.yebela.data;
 
+import android.app.SearchManager;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -7,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 /*
  * Created by Hugues on 16/11/2016.
@@ -17,6 +19,7 @@ public class PlacesProvider extends ContentProvider {
     private PlacesDbHelper mOpenHelper;
 
     static final int PLACE = 100;
+    static final int SEARCH = 200;
 
     @Override
     public boolean onCreate() {
@@ -28,9 +31,24 @@ public class PlacesProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         // Here's the switch statement that, given a URI, will determine what kind of request it is,
         // and query the database accordingly.
+        Log.i("PlaceProvider","Query received");
         Cursor retCursor;
         switch (sUriMatcher.match(uri)) {
             // "place"
+            case SEARCH:{
+                selectionArgs[0] = "%"+selectionArgs[0]+"%";
+                String[] columns = new String[]{"name"};
+                retCursor = mOpenHelper.getReadableDatabase().query(
+                        PlacesContract.PlaceEntry.TABLE_NAME,
+                        columns, // List of columns to return
+                        selection,  // A filter declaring which rows to return
+                        selectionArgs, // You may include ?s in selection, which will be replaced by the values from selectionArgs
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
             case PLACE: {
                 retCursor = mOpenHelper.getReadableDatabase().query(
                         PlacesContract.PlaceEntry.TABLE_NAME,
@@ -155,6 +173,7 @@ public class PlacesProvider extends ContentProvider {
 
         // For each type of URI you want to add, create a corresponding code.
         matcher.addURI(authority, PlacesContract.PATH_PLACE, PLACE);
+        matcher.addURI(authority, PlacesContract.PATH_PLACE + "/" + SearchManager.SUGGEST_URI_PATH_QUERY,SEARCH);
 
         return matcher;
     }
