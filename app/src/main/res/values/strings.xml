@@ -15,6 +15,8 @@
     <!-- preferences -->
     <string name="yebela_keys">yebela_keys</string>
     <string name="timestamp">timestamp</string>
+    <string name="latitude">latitude</string>
+    <string name="longitude">longitude</string>
     <string name="update_request">update_request</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -37,5 +39,5 @@
     <string name="search">Search</string>
     <string name="other">Other</string>
     <string name="near">Near from here</string>
-
+    <string name="location_description">This service allow Yebela app to get the current user location</string>
 </resources>

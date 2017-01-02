@@ -1,13 +1,12 @@
 package com.kisita.yebela.activities;
 
+
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,29 +20,19 @@ import android.view.MenuItem;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
 import com.kisita.yebela.R;
 import com.kisita.yebela.gcm.QuickstartPreferences;
 import com.kisita.yebela.gcm.RegistrationIntentService;
+import com.kisita.yebela.location.YebelaLocationService;
 import com.kisita.yebela.utility.RecycleAdapter;
-
-import java.text.BreakIterator;
-import java.text.CollationElementIterator;
-
 import static com.kisita.yebela.sync.YebelaSyncAdapter.initializeSyncAdapter;
 
 
-public class ServicesActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class ServicesActivity extends AppCompatActivity {
     private static final String TAG = "ServicesActivity";
     //private CollapsingToolbarLayout collapsingToolbarLayout;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final int YEBELA_REQUEST_COARSE_LOCATION = 100;
-    private RecyclerView mRecyclerView;
-    private RecycleAdapter mAdapter;
-
-    private Toolbar toolbar;
-    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +40,8 @@ public class ServicesActivity extends AppCompatActivity implements GoogleApiClie
         setContentView(R.layout.activity_services);
         setRecyclerView();
         setActionBar();
-        createGoogleApiClient();
+        requestPermissionsForLocalisation();
         initializeSyncAdapter(this);
-
         Log.i(TAG, "Try to start registration service");
         if (checkPlayServices()) {
             Log.i(TAG, "Google services checked");
@@ -67,6 +55,38 @@ public class ServicesActivity extends AppCompatActivity implements GoogleApiClie
                 Intent intent = new Intent(this, RegistrationIntentService.class);
                 startService(intent);
             }
+        }
+    }
+
+    private void requestPermissionsForLocalisation(){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    YEBELA_REQUEST_COARSE_LOCATION);
+        }else{
+            startService(new Intent(ServicesActivity.this, YebelaLocationService.class));
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case YEBELA_REQUEST_COARSE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startService(new Intent(ServicesActivity.this, YebelaLocationService.class));
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
         }
     }
 
@@ -84,16 +104,6 @@ public class ServicesActivity extends AppCompatActivity implements GoogleApiClie
             //onSearchRequested();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void createGoogleApiClient() {
-        if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
-        }
     }
 
     /*
@@ -139,9 +149,9 @@ public class ServicesActivity extends AppCompatActivity implements GoogleApiClie
 
 
     private void setRecyclerView() {
-        mRecyclerView = (RecyclerView) findViewById(R.id.cardList);
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.cardList);
         mRecyclerView.setLayoutManager(new GridLayoutManager(ServicesActivity.this, 2));
-        mAdapter = new RecycleAdapter(this);
+        RecycleAdapter mAdapter = new RecycleAdapter(this);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -150,75 +160,8 @@ public class ServicesActivity extends AppCompatActivity implements GoogleApiClie
     private void setActionBar() {
         //collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         //collapsingToolbarLayout.setTitleEnabled(false);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-    }
-
-    @Override
-    protected void onStop() {
-        mGoogleApiClient.disconnect();
-        super.onStop();
-    }
-
-    @Override
-    protected void onStart() {
-        mGoogleApiClient.connect();
-        super.onStart();
-    }
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        Log.i("Yebela", "connected to google play services ");
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                    YEBELA_REQUEST_COARSE_LOCATION);
-        }else{
-            getLocation();
-        }
-    }
-
-    private  void getLocation(){
-        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
-        if (mLastLocation != null) {
-            Log.i("Yebela","connected to google play services  : latitude = "+mLastLocation.getLatitude());
-            Log.i("Yebela","connected to google play services  : longitude = "+mLastLocation.getLongitude());
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case YEBELA_REQUEST_COARSE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    getLocation();
-
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-                return;
-            }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
-        }
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        Log.i("Yebela","connection to google play services suspended");
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.i("Yebela","connection to google play services failed");
     }
 }

@@ -22,7 +22,7 @@ import com.squareup.okhttp.RequestBody;
 
 public class RegistrationIntentService extends IntentService {
     private static final String TAG = "RegIntentService";
-    private static final String REGISTER_URL = "http://192.168.1.42/gcm/register.php";
+    private static final String REGISTER_URL = "http://192.168.1.40/gcm/register.php";
     private static final String KEY_TOKEN = "gcm_token";
 
     public RegistrationIntentService() {

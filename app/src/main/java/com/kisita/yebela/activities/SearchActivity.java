@@ -21,7 +21,7 @@ import com.kisita.yebela.R;
 import com.kisita.yebela.data.PlacesContract;
 import com.kisita.yebela.utility.ResultAdapter;
 
-public class SearchActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener,AdapterView.OnItemClickListener{
+public class SearchActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener{
     private ListView searchList;
     private TextView mNoResult;
     private String selection = PlacesContract.PlaceEntry.COLUMN_NAME+ " LIKE ?";
@@ -49,7 +49,7 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
         searchList = (ListView)findViewById(R.id.searchList);
         mMainAdapter = new ResultAdapter(this, null, 0);
         searchList.setAdapter(mMainAdapter);
-        searchList.setOnItemClickListener(this);
+        searchList.setOnItemClickListener(mMainAdapter);
         mNoResult = (TextView)findViewById(R.id.no_result) ;
         getLoaderManager().initLoader(0, null, this);
     }
@@ -118,11 +118,5 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         System.out.println("onLoaderReset");
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Cursor c  = (Cursor)mMainAdapter.getItem(i);
-        System.out.println("coucou############## " + c.getString(1));
     }
 }
