@@ -1,9 +1,14 @@
 package com.kisita.yebela.activities;
+
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -23,15 +28,20 @@ import com.kisita.yebela.gcm.QuickstartPreferences;
 import com.kisita.yebela.gcm.RegistrationIntentService;
 import com.kisita.yebela.utility.RecycleAdapter;
 
+import java.text.BreakIterator;
+import java.text.CollationElementIterator;
+
 import static com.kisita.yebela.sync.YebelaSyncAdapter.initializeSyncAdapter;
 
 
-public class ServicesActivity extends AppCompatActivity  implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener{
+public class ServicesActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private static final String TAG = "ServicesActivity";
     //private CollapsingToolbarLayout collapsingToolbarLayout;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    private static final int YEBELA_REQUEST_COARSE_LOCATION = 100;
     private RecyclerView mRecyclerView;
     private RecycleAdapter mAdapter;
+
     private Toolbar toolbar;
     private GoogleApiClient mGoogleApiClient;
 
@@ -44,16 +54,16 @@ public class ServicesActivity extends AppCompatActivity  implements GoogleApiCli
         createGoogleApiClient();
         initializeSyncAdapter(this);
 
-        Log.i(TAG,"Try to start registration service");
+        Log.i(TAG, "Try to start registration service");
         if (checkPlayServices()) {
-            Log.i(TAG,"Google services checked");
+            Log.i(TAG, "Google services checked");
             // Start IntentService to register this application with GCM.
             SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
                     getApplicationContext().getString(R.string.yebela_keys), Context.MODE_PRIVATE);
             boolean sentToken = sharedPref
                     .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
-            if(!sentToken) {
-                Log.i(TAG,"Starting registration service");
+            if (!sentToken) {
+                Log.i(TAG, "Starting registration service");
                 Intent intent = new Intent(this, RegistrationIntentService.class);
                 startService(intent);
             }
@@ -68,8 +78,8 @@ public class ServicesActivity extends AppCompatActivity  implements GoogleApiCli
             return true;
         }
 
-        if(id == R.id.search_icon){
-            Intent search = new Intent(this,SearchActivity.class);
+        if (id == R.id.search_icon) {
+            Intent search = new Intent(this, SearchActivity.class);
             startActivity(search);
             //onSearchRequested();
         }
@@ -128,7 +138,7 @@ public class ServicesActivity extends AppCompatActivity  implements GoogleApiCli
     }
 
 
-    private void setRecyclerView(){
+    private void setRecyclerView() {
         mRecyclerView = (RecyclerView) findViewById(R.id.cardList);
         mRecyclerView.setLayoutManager(new GridLayoutManager(ServicesActivity.this, 2));
         mAdapter = new RecycleAdapter(this);
@@ -137,10 +147,10 @@ public class ServicesActivity extends AppCompatActivity  implements GoogleApiCli
     }
 
 
-    private void setActionBar(){
+    private void setActionBar() {
         //collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         //collapsingToolbarLayout.setTitleEnabled(false);
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
@@ -159,7 +169,47 @@ public class ServicesActivity extends AppCompatActivity  implements GoogleApiCli
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        Log.i("Yebela","connected to google play services ");
+        Log.i("Yebela", "connected to google play services ");
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    YEBELA_REQUEST_COARSE_LOCATION);
+        }else{
+            getLocation();
+        }
+    }
+
+    private  void getLocation(){
+        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+        if (mLastLocation != null) {
+            Log.i("Yebela","connected to google play services  : latitude = "+mLastLocation.getLatitude());
+            Log.i("Yebela","connected to google play services  : longitude = "+mLastLocation.getLongitude());
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case YEBELA_REQUEST_COARSE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getLocation();
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     @Override
