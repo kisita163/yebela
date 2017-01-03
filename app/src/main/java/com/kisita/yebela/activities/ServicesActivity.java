@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import android.view.MenuItem;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.kisita.yebela.R;
 import com.kisita.yebela.gcm.QuickstartPreferences;
 import com.kisita.yebela.gcm.RegistrationIntentService;
@@ -28,11 +31,12 @@ import com.kisita.yebela.utility.RecycleAdapter;
 import static com.kisita.yebela.sync.YebelaSyncAdapter.initializeSyncAdapter;
 
 
-public class ServicesActivity extends AppCompatActivity {
+public class ServicesActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
     private static final String TAG = "ServicesActivity";
     //private CollapsingToolbarLayout collapsingToolbarLayout;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final int YEBELA_REQUEST_COARSE_LOCATION = 100;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,7 @@ public class ServicesActivity extends AppCompatActivity {
         setRecyclerView();
         setActionBar();
         requestPermissionsForLocalisation();
+        createGoogleApiClient();
         initializeSyncAdapter(this);
         Log.i(TAG, "Try to start registration service");
         if (checkPlayServices()) {
@@ -163,5 +168,32 @@ public class ServicesActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
+
+    private void createGoogleApiClient() {
+
+        if (mGoogleApiClient == null) {
+            Log.i(TAG,"createGoogleApiClient");
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        Log.i(TAG,"Connected to google service");
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.i(TAG,"onConnectionSuspended");
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.i(TAG,"onConnectionFailed");
     }
 }
