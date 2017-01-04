@@ -40,4 +40,6 @@
     <string name="other">Other</string>
     <string name="near">Near from here</string>
     <string name="location_description">This service allow Yebela app to get the current user location</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="my_position">My position</string>
 </resources>

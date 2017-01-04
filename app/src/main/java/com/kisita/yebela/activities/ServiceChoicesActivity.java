@@ -37,7 +37,6 @@ import java.util.HashMap;
 
 public class ServiceChoicesActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener{
     private Resources mResources;
-    private Drawable originalBackground;
     private ArrayList<String> choicePicture = new ArrayList<>();
     private ArrayList<String> choiceName = new ArrayList<>();
     private int[][] slider_resources = {{R.drawable.restoration_1,R.drawable.restoration_2,R.drawable.restoration_3,R.drawable.restoration_4,R.drawable.restoration_5},
@@ -104,10 +103,12 @@ public class ServiceChoicesActivity extends AppCompatActivity implements BaseSli
     }
 
     private void set_layout_choices() {
-        final Intent intent = new Intent(this,SearchActivity.class);
+        final Intent searchList = new Intent(this,SearchActivity.class);
+        final Intent map = new Intent(this,MapsActivity.class);
+
         GridLayout gridLayout = (GridLayout)findViewById(R.id.grid_layout);
         int service = getIntent().getIntExtra(getString(R.string.service_id),0);
-        intent.putExtra(getString(R.string.service_id),service);
+        searchList.putExtra(getString(R.string.service_id),service);
 
         for(int i=0 ; i < gridLayout.getChildCount() ; i++){
             final View v = gridLayout.getChildAt(i);
@@ -123,9 +124,9 @@ public class ServiceChoicesActivity extends AppCompatActivity implements BaseSli
                                 v.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        startActivity(intent);
-                                        originalBackground = v.getBackground();
-                                        v.setBackgroundColor(Color.parseColor("#9e9fa1"));
+                                        startActivity(searchList);
+                                        //originalBackground = v.getBackground();
+                                        //v.setBackgroundColor(Color.parseColor("#9e9fa1"));
                                     }
                                 });
                             }
@@ -144,8 +145,8 @@ public class ServiceChoicesActivity extends AppCompatActivity implements BaseSli
                             v.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    startActivity(intent);
-                                    v.setBackgroundColor(Color.parseColor("#9e9fa1"));
+                                    startActivity(searchList);
+                                    //v.setBackgroundColor(Color.parseColor("#9e9fa1"));
                                 }
                             });
                         }
@@ -163,8 +164,8 @@ public class ServiceChoicesActivity extends AppCompatActivity implements BaseSli
                             v.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    startActivity(intent);
-                                    v.setBackgroundColor(Color.parseColor("#9e9fa1"));
+                                    startActivity(map);
+                                    //v.setBackgroundColor(Color.parseColor("#9e9fa1"));
                                 }
                             });
                         }
@@ -210,7 +211,7 @@ public class ServiceChoicesActivity extends AppCompatActivity implements BaseSli
         mDemoSlider.addOnPageChangeListener(this);
     }
 
-    @Override
+   /* @Override
     protected void onStop() {
         super.onStop();
         GridLayout gridLayout = (GridLayout)findViewById(R.id.grid_layout);
@@ -220,7 +221,7 @@ public class ServiceChoicesActivity extends AppCompatActivity implements BaseSli
                 v.setBackgroundResource(R.color.cardview_light_background);
             }
         }
-    }
+    }*/
 
     @Override
     public void onSliderClick(BaseSliderView slider) {
