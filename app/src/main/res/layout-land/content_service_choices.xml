@@ -36,8 +36,8 @@
             android:rowCount="3">
 
             <LinearLayout
-                android:gravity="center_vertical"
-
+            android:gravity="center_vertical"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_column="0"
             android:layout_row="0"
             android:orientation="vertical"
@@ -63,7 +63,7 @@
             </LinearLayout>
 
             <LinearLayout
-
+                android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:layout_column="1"
                 android:layout_row="0"
@@ -88,7 +88,7 @@
             </LinearLayout>
 
             <LinearLayout
-
+                android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:id="@+id/layout_choice_3"
                 android:layout_column="2"
@@ -114,7 +114,7 @@
             </LinearLayout>
 
             <LinearLayout
-
+                android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:id="@+id/layout_choice_4"
                 android:layout_column="0"
@@ -139,7 +139,7 @@
             </LinearLayout>
 
             <LinearLayout
-
+                android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:id="@+id/layout_choice_5"
                 android:layout_column="1"
@@ -166,6 +166,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:id="@+id/layout_choice_6"
                 android:layout_column="2"
@@ -190,7 +191,7 @@
                     android:text="Description"/>
             </LinearLayout>
             <LinearLayout
-
+                android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:id="@+id/layout_choice_7"
                 android:layout_column="0"
@@ -215,7 +216,7 @@
             </LinearLayout>
 
             <LinearLayout
-
+                android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:id="@+id/layout_choice_8"
                 android:layout_column="1"
@@ -241,6 +242,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:id="@+id/layout_choice_9"
                 android:layout_column="2"
