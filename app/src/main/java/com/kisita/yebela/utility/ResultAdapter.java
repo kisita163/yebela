@@ -5,6 +5,7 @@ package com.kisita.yebela.utility;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -19,6 +20,8 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.kisita.yebela.R;
+import com.kisita.yebela.activities.PlaceActivity;
+
 import java.util.Random;
 import java.util.StringTokenizer;
 
@@ -28,7 +31,9 @@ public class ResultAdapter extends CursorAdapter implements Filterable,AdapterVi
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Cursor c  = (Cursor)this.getItem(i);
-        System.out.println("coucou############## " + c.getString(1));
+        Intent intent = new Intent(mContext, PlaceActivity.class);
+        intent.putExtra("PlaceId",c.getString(0)); // send the database item id
+        mContext.startActivity(intent);
     }
 
 

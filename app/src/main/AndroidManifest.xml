@@ -116,7 +116,7 @@
         <service
             android:name=".location.YebelaLocationService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -131,7 +131,11 @@
 
         <activity
             android:name=".activities.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".activities.PlaceActivity"
+            android:label="@string/title_activity_place"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
