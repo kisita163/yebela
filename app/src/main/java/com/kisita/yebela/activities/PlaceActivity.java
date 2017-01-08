@@ -1,10 +1,12 @@
 package com.kisita.yebela.activities;
 
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +18,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,14 +27,21 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.StreetViewPanoramaCamera;
 import com.kisita.yebela.R;
 import com.kisita.yebela.data.PlacesContract;
+import com.kisita.yebela.utility.PlaceDescription;
 
-public class PlaceActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+public class PlaceActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private Toolbar toolbar;
+    private PlaceDescription place;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -71,32 +81,24 @@ public class PlaceActivity extends AppCompatActivity implements LoaderManager.Lo
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+        place = new PlaceDescription();
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
+
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
-
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         if (getLoaderManager().getLoader(0) == null){
             getLoaderManager().initLoader(0, null, this);
         }else{
             getLoaderManager().restartLoader(0,null,this);
         }
-
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        assert tabLayout != null;
+        tabLayout.setupWithViewPager(mViewPager);
     }
 
 
@@ -126,7 +128,6 @@ public class PlaceActivity extends AppCompatActivity implements LoaderManager.Lo
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         Uri PlacesUri = PlacesContract.PlaceEntry.CONTENT_URI;
         selectionArgs[0] = getIntent().getStringExtra("PlaceId");
-        System.out.println("###################### -> "+selectionArgs[0]);
 
         return new CursorLoader(this,
                 PlacesUri,
@@ -141,10 +142,16 @@ public class PlaceActivity extends AppCompatActivity implements LoaderManager.Lo
         try {
             while (cursor.moveToNext()) {
                 toolbar.setTitle(cursor.getString(1));
+                place.setAddress(cursor.getString(8));
+                place.setWebsite(cursor.getString(6));
+                place.setPhoneNumber(cursor.getString(10));
+                place.setName(cursor.getString(1));
+                place.setLatlng(new LatLng(Double.valueOf(cursor.getString(4)),Double.valueOf(cursor.getString(3))));
             }
         } finally {
             cursor.close();
         }
+        mSectionsPagerAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -155,13 +162,16 @@ public class PlaceActivity extends AppCompatActivity implements LoaderManager.Lo
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class PlaceholderFragment extends Fragment implements OnMapReadyCallback{
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
-        private MapView mMapView;
+        private View rootView;
+        private static PlaceDescription mPlace;
+        private GoogleMap mMap;
+
         public PlaceholderFragment() {
         }
 
@@ -169,9 +179,10 @@ public class PlaceActivity extends AppCompatActivity implements LoaderManager.Lo
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
+        public static PlaceholderFragment newInstance(int sectionNumber, PlaceDescription place) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
+            mPlace= place;
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
@@ -180,12 +191,46 @@ public class PlaceActivity extends AppCompatActivity implements LoaderManager.Lo
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_place, container, false);
+            int sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
 
+            switch (sectionNumber){
+                case 1 :
+                    inflateViewWithThisResource(inflater,R.layout.fragment_place,container);
+                    SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                            .findFragmentById(R.id.mapPlace);
+                    if(mapFragment != null)
+                        mapFragment.getMapAsync(this);
+                    break;
+                default:
+                    break;
+            }
 
             return rootView;
         }
+
+        private void inflateViewWithThisResource(LayoutInflater inflater, int resource,ViewGroup container){
+            if (rootView != null) {
+                ViewGroup parent = (ViewGroup) rootView.getParent();
+                if (parent != null)
+                    parent.removeView(rootView);
+            }
+            try {
+                rootView = inflater.inflate(resource, container, false);
+            } catch (InflateException e) {
+                System.err.println("View already created");
+            }
+        }
+
+        @Override
+        public void onMapReady(GoogleMap googleMap) {
+            mMap = googleMap;
+            mMap.addMarker(new MarkerOptions().position(mPlace.getLatlng()).title(mPlace.getName()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mPlace.getLatlng(),16));
+        }
+
+
     }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -201,7 +246,7 @@ public class PlaceActivity extends AppCompatActivity implements LoaderManager.Lo
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            return PlaceholderFragment.newInstance(position + 1,place);
         }
 
         @Override
