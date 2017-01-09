@@ -35,6 +35,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.StreetViewPanoramaCamera;
+import com.google.android.gms.vision.text.Text;
 import com.kisita.yebela.R;
 import com.kisita.yebela.data.PlacesContract;
 import com.kisita.yebela.utility.PlaceDescription;
@@ -226,9 +227,20 @@ public class PlaceActivity extends AppCompatActivity implements LoaderManager.Lo
             mMap = googleMap;
             mMap.addMarker(new MarkerOptions().position(mPlace.getLatlng()).title(mPlace.getName()));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mPlace.getLatlng(),16));
+            setPlaceDescription();
         }
 
+        void setPlaceDescription(){
+            TextView addressView = (TextView)getActivity().findViewById(R.id.address);
+            TextView phoneView = (TextView)getActivity().findViewById(R.id.phone_number);
+            TextView websiteView = (TextView)getActivity().findViewById(R.id.website);
 
+
+            addressView.setText(mPlace.getAddress());
+            phoneView.setText(mPlace.getPhoneNumber());
+            websiteView.setText(mPlace.getWebsite());
+
+        }
     }
 
 

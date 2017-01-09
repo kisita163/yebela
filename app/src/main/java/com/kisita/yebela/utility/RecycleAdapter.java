@@ -54,7 +54,6 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.GridItem
                 category = jsonArray.getJSONObject(i);
                 serviceName.add(category.getString(JsonAttributes.NAME));
                 servicePicture.add(category.getString(JsonAttributes.PICTURE));
-                System.out.println("#####name = "+category.getString(JsonAttributes.NAME));
             }
         } catch (JSONException e) {
             e.printStackTrace();

@@ -289,7 +289,7 @@ public class YebelaSyncAdapter extends AbstractThreadedSyncAdapter {
             try {
                 parseJSon(response_body);
             } catch (JSONException e) {
-                System.out.printf("received data  = " + response_body);
+                //TODO//System.out.printf("received data  = " + response_body);
             }
 
 

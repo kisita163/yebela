@@ -84,7 +84,6 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        System.out.println("onQueryTextChange");
         selectionArgs[0] = newText;
         getLoaderManager().restartLoader(0,null,this);
         return false;
@@ -116,6 +115,6 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        System.out.println("onLoaderReset");
+        //TODO
     }
 }

@@ -43,5 +43,9 @@
     <string name="title_activity_maps">Map</string>
     <string name="my_position">My position</string>
     <string name="title_activity_place">PlaceActivity</string>
+
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="address">Address</string>
+    <string name="phone_number">Phone number</string>
+    <string name="website">Website</string>
 </resources>

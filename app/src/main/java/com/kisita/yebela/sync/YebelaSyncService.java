@@ -17,7 +17,6 @@ public class YebelaSyncService extends Service {
         Log.i(TAG,"Starting Sync Service");
         synchronized (sSyncAdapterLock) {
             if (sYebelaSyncAdapter == null) {
-                System.out.println("Creating Adapter");
                 sYebelaSyncAdapter = new YebelaSyncAdapter(getApplicationContext(), true);
             }
         }
