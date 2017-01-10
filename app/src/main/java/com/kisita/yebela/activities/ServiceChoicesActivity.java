@@ -2,11 +2,13 @@ package com.kisita.yebela.activities;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -36,6 +38,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ServiceChoicesActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener{
+    private final String TAG = this.getClass().getName();
     private Resources mResources;
     private ArrayList<String> choicePicture = new ArrayList<>();
     private ArrayList<String> choiceName = new ArrayList<>();
@@ -45,7 +48,7 @@ public class ServiceChoicesActivity extends AppCompatActivity implements BaseSli
                                          {R.drawable.culture_1,R.drawable.culture_2,R.drawable.culture_3,R.drawable.culture_4,R.drawable.culture_5},
                                          {R.drawable.restoration_1,R.drawable.restoration_2,R.drawable.restoration_3,R.drawable.restoration_4,R.drawable.restoration_5},
                                          {R.drawable.loisir_1,R.drawable.loisir_2,R.drawable.loisir_3,R.drawable.loisir_4,R.drawable.loisir_5},
-                                         {R.drawable.restoration_1,R.drawable.restoration_2,R.drawable.restoration_3,R.drawable.restoration_4,R.drawable.restoration_5},
+                                         {R.drawable.well_being_1,R.drawable.well_being_2,R.drawable.well_being_3,R.drawable.well_being_4,R.drawable.well_being_5},
                                          {R.drawable.restoration_1,R.drawable.restoration_2,R.drawable.restoration_3,R.drawable.restoration_4,R.drawable.restoration_5}};
 
     @Override
@@ -54,6 +57,15 @@ public class ServiceChoicesActivity extends AppCompatActivity implements BaseSli
         setContentView(R.layout.activity_service_choices);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG,"Click on back button");
+                finish();
+            }
+        });
         getSupportActionBar().setTitle("");
         mResources = this.getResources();
 
@@ -105,6 +117,7 @@ public class ServiceChoicesActivity extends AppCompatActivity implements BaseSli
     private void set_layout_choices() {
         final Intent searchList = new Intent(this,SearchActivity.class);
         final Intent map = new Intent(this,MapsActivity.class);
+        String choice;
 
         GridLayout gridLayout = (GridLayout)findViewById(R.id.grid_layout);
         int service = getIntent().getIntExtra(getString(R.string.service_id),0);
@@ -120,13 +133,14 @@ public class ServiceChoicesActivity extends AppCompatActivity implements BaseSli
                                 ((ImageView)m).setImageResource(this.getResources().getIdentifier(choicePicture.get(i),"drawable",this.getPackageName()));
                             }
                             if (m instanceof TextView) {
-                                ((TextView) m).setText(choiceName.get(i));
+                                choice = choiceName.get(i);
+                                ((TextView) m).setText(choice);
+                                final String finalChoice = choice;
                                 v.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
+                                        searchList.putExtra(getString(R.string.service_id), finalChoice);
                                         startActivity(searchList);
-                                        //originalBackground = v.getBackground();
-                                        //v.setBackgroundColor(Color.parseColor("#9e9fa1"));
                                     }
                                 });
                             }
@@ -146,7 +160,6 @@ public class ServiceChoicesActivity extends AppCompatActivity implements BaseSli
                                 @Override
                                 public void onClick(View view) {
                                     startActivity(searchList);
-                                    //v.setBackgroundColor(Color.parseColor("#9e9fa1"));
                                 }
                             });
                         }

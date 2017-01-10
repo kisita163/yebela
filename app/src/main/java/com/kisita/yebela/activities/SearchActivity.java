@@ -7,9 +7,12 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -21,9 +24,10 @@ import com.kisita.yebela.data.PlacesContract;
 import com.kisita.yebela.utility.ResultAdapter;
 
 public class SearchActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener{
+    private String TAG = getClass().getName();
     private ListView searchList;
     private TextView mNoResult;
-    private String selection = PlacesContract.PlaceEntry.COLUMN_NAME+ " LIKE ?";
+    private String selection = PlacesContract.PlaceEntry.COLUMN_NAME+ " LIKE ? ";
     private ResultAdapter mMainAdapter;
     private String[] selectionArgs = {""};
     private static final String[] PLACES_COLUMNS = {
@@ -44,12 +48,17 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String choice ;
         setContentView(R.layout.activity_search);
         searchList = (ListView)findViewById(R.id.searchList);
         mMainAdapter = new ResultAdapter(this, null, 0);
         searchList.setAdapter(mMainAdapter);
         searchList.setOnItemClickListener(mMainAdapter);
         mNoResult = (TextView)findViewById(R.id.no_result) ;
+        choice = getIntent().getStringExtra(getString(R.string.service_id));
+        if(choice != null){
+            selection += " AND "+PlacesContract.PlaceEntry.COLUMN_TYPE+ "  LIKE  \"%"+choice.substring(0,3)+"%\"";
+        }
         getLoaderManager().initLoader(0, null, this);
     }
 
@@ -94,7 +103,7 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
         Uri PlacesUri = PlacesContract.PlaceEntry.CONTENT_URI;
         selectionArgs[0] = "%"+selectionArgs[0]+"%";
 
-        return new CursorLoader(this,
+       return new CursorLoader(this,
                 PlacesUri,
                 PLACES_COLUMNS,
                 selection,
@@ -105,7 +114,6 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         mMainAdapter.swapCursor(cursor);
-        System.out.println("onLoadFinished and count  = " + mMainAdapter.getCount());
         if(mMainAdapter.getCount() == 0){ // No result
             mNoResult.setVisibility(View.VISIBLE);
         }else {
