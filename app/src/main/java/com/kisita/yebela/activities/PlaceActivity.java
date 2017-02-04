@@ -3,8 +3,11 @@ package com.kisita.yebela.activities;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -119,7 +122,8 @@ public class PlaceActivity extends AppCompatActivity implements LoaderManager.Lo
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent settings = new Intent(this,SettingsActivity.class);
+            startActivity(settings);
         }
 
         return super.onOptionsItemSelected(item);
@@ -237,8 +241,36 @@ public class PlaceActivity extends AppCompatActivity implements LoaderManager.Lo
 
 
             addressView.setText(mPlace.getAddress());
-            phoneView.setText(mPlace.getPhoneNumber());
-            websiteView.setText(mPlace.getWebsite());
+
+            if(!mPlace.getPhoneNumber().equalsIgnoreCase("")) {
+                phoneView.setText(mPlace.getPhoneNumber());
+                phoneView.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+                phoneView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent call = new Intent(Intent.ACTION_DIAL);
+                        call.setData(Uri.parse("tel:"+mPlace.getPhoneNumber()));
+                        startActivity(call);
+                    }
+                });
+            }
+            else
+                phoneView.setText(R.string.not_available);
+
+            if(!mPlace.getWebsite().equalsIgnoreCase("")){
+                websiteView.setText(mPlace.getWebsite());
+                websiteView.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+                websiteView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent web = new Intent(Intent.ACTION_VIEW);
+                        web.setData(Uri.parse(mPlace.getWebsite()));
+                        startActivity(web);
+                    }
+                });
+            }
+            else
+                websiteView.setText(R.string.not_available);
 
         }
     }

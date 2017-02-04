@@ -260,7 +260,8 @@ public class ServiceChoicesActivity extends AppCompatActivity implements BaseSli
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            return true;
+            Intent settings = new Intent(this,SettingsActivity.class);
+            startActivity(settings);
         }
 
         if(id == R.id.search_icon){

@@ -23,7 +23,7 @@
         android:id="@+id/resultName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed"
+        android:fontFamily="cursive"
         android:text="Name"
         android:layout_gravity="center_vertical"
         android:gravity="center"
