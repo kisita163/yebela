@@ -7,20 +7,20 @@
             android:layout_height="match_parent"
             android:weightSum="2"
             android:layout_gravity="bottom"
-            android:orientation="vertical">
+            android:orientation="horizontal">
              <fragment
                  android:id="@+id/mapPlace"
                  android:name="com.google.android.gms.maps.SupportMapFragment"
-                 android:layout_width="match_parent"
-                 android:layout_height="0dp"
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
                  android:layout_weight="1"
                  tools:context="com.kisita.yebela.activities.PlaceActivity"
                  tools:layout="@layout/activity_maps" />
             <GridLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_margin="@dimen/activity_vertical_margin"
                 android:layout_weight="1"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:columnCount="2"
                 android:rowCount="4">
                 <ImageView
