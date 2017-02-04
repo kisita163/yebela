@@ -286,6 +286,7 @@ public class YebelaSyncAdapter extends AbstractThreadedSyncAdapter {
         try {
             Response response = client.newCall(request).execute();
             String response_body = response.body().string();
+            Log.i(LOG_TAG,"response body is : "+response_body);
             try {
                 parseJSon(response_body);
             } catch (JSONException e) {

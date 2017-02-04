@@ -135,7 +135,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.GridItem
                 intent.putExtra(context.getString(R.string.service_id),i);
                 //ActivityOptionsCompat options = ActivityOptionsCompat.
                 //        makeSceneTransitionAnimation((Activity)context,view.findViewById(R.id.item_title), "profile");
-                context.startActivity(intent);//, options.toBundle()); // // TODO: 09-12-16
+                context.startActivity(intent);
             }
         };
     }

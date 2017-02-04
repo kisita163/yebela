@@ -57,6 +57,7 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
         mNoResult = (TextView)findViewById(R.id.no_result) ;
         choice = getIntent().getStringExtra(getString(R.string.service_id));
         if(choice != null){
+            Log.i(TAG,"choice is different from null");
             selection += " AND "+PlacesContract.PlaceEntry.COLUMN_TYPE+ "  LIKE  \"%"+choice.substring(0,3)+"%\"";
         }
         getLoaderManager().initLoader(0, null, this);
@@ -102,6 +103,8 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         Uri PlacesUri = PlacesContract.PlaceEntry.CONTENT_URI;
         selectionArgs[0] = "%"+selectionArgs[0]+"%";
+
+        Log.i(TAG,selection + " " + selectionArgs[0]);
 
        return new CursorLoader(this,
                 PlacesUri,
