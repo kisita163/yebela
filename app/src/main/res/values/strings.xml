@@ -65,15 +65,57 @@
     <string name="pref_default_display_name">John Smith</string>
 
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
+    <string name="reference">Reference</string>
+
+
+    <string-array name="reference_list">
+        <item>My position</item>
+        <item>Sud-Ubangi</item>
+        <item>Nord-Ubangi</item>
+        <item>Mongala</item>
+        <item>Bas-Uele</item>
+        <item>Haut-uele</item>
+        <item>Ituri</item>
+        <item>Nord-kivu</item>
+        <item>Sud-kivu</item>
+        <item>Tshopo</item>
+        <item>Maniema</item>
+        <item>Sankuru</item>
+        <item>Tshuapa</item>
+        <item>Equateur</item>
+        <item>Mai-ndombe</item>
+        <item>Kinshasa</item>
+        <item>Kwilu</item>
+        <item>Kasai</item>
+        <item>Kasaï-Central</item>
+        <item>Kasaï-Oriental</item>
+        <item>Lomami</item>
+        <item>Kongo-Central</item>
+        <item>Kwango</item>
+        <item>Lualaba</item>
+        <item>Haut-Lomami</item>
+        <item>Haut-Katanga</item>
+        <item>Tanganyka</item>
     </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
+    <string-array name="reference_list_values">
+        <item>0.0,0.0</item>
+        <item>2.1338929,17.4920677</item>
+        <item>3.9674287,18.9694898</item>
+        <item>1.9406687,19.2459476</item>
+        <item>3.7614793,20.4442036</item>
+        <item>3.3703674,26.4179404</item>
+        <item>2.184362,27.0654165</item>
+        <item>-0.5459825,26.3488437</item>
+        <item>-3.280729,26.9101764</item>
+        <item>0.1710618,20.6868208</item>
+        <item>-2.5341525,24.4053237</item>
+        <item>-3.7220115,21.1821465</item>
+        <item>-0.3619994,19.6587986</item>
+        <item>1.3152429,15.9858429</item>
+        <item>-2.5535203,13.9927925</item>
+        <item>-4.4011293,15.2527045</item>
+        <item>-4.7466187,16.0984492</item>
+        <item>-4.759335,18.8915089</item>
     </string-array>
 
     <!-- Example settings for Data & Sync -->

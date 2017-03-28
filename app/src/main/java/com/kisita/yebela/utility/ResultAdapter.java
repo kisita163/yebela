@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.location.Location;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,8 @@ import com.kisita.yebela.activities.PlaceActivity;
 
 import java.util.Random;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ResultAdapter extends CursorAdapter implements Filterable,AdapterView.OnItemClickListener{
     private Context mContext;
@@ -72,11 +75,34 @@ public class ResultAdapter extends CursorAdapter implements Filterable,AdapterVi
         ViewHolder viewHolder = (ViewHolder) view.getTag();
         Location destination = new Location("destination");
         Location currPosition = new Location("currPosition");
-        SharedPreferences sharedPref = mContext.getSharedPreferences(
-                mContext.getString(R.string.yebela_keys), Context.MODE_PRIVATE);
 
-        String currLatitude = sharedPref.getString(mContext.getString(R.string.latitude),"-4.4011293");
-        String currLongitude = sharedPref.getString(mContext.getString(R.string.longitude),"15.2527045");
+        String currLatitude ;
+        String currLongitude ;
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+        String reference = sharedPref.getString("reference","");
+
+        Pattern loc = Pattern.compile("(.*),(.*)");
+        Matcher match = loc.matcher(reference);
+
+        if(match.matches()) {
+            if(!match.group(1).equalsIgnoreCase("0.0")) {
+                currLatitude = match.group(1);
+                currLongitude = match.group(2);
+            }
+            else // My position
+            {
+                sharedPref = mContext.getSharedPreferences(
+                        mContext.getString(R.string.yebela_keys), Context.MODE_PRIVATE);
+
+                currLatitude = sharedPref.getString(mContext.getString(R.string.latitude),"-4.4011293");
+                currLongitude = sharedPref.getString(mContext.getString(R.string.longitude),"15.2527045");
+            }
+        }
+        else { // Default lat long is Kinshasa
+            currLatitude = "-4.4011293";
+            currLongitude = "15.2527045";
+        }
 
         String name = cursor.getString(1);
         String city = cursor.getString(8);

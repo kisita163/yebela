@@ -7,6 +7,7 @@ import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -14,10 +15,14 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.kisita.yebela.R;
 import com.kisita.yebela.data.PlacesContract;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -68,15 +73,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        SharedPreferences sharedPref = this.getSharedPreferences(
-                this.getString(R.string.yebela_keys), Context.MODE_PRIVATE);
+        String currLatitude ;
+        String currLongitude ;
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
-        String currLatitude = "-4.4011293";//= sharedPref.getString(this.getString(R.string.latitude),"-4.4011293");
-        String currLongitude = "15.2527045"; //= sharedPref.getString(this.getString(R.string.longitude),"15.2527045");
+        String reference = sharedPref.getString("reference","");
+
+        Pattern loc = Pattern.compile("(.*),(.*)");
+        Matcher  match = loc.matcher(reference);
+
+        if(match.matches()) {
+            if(!match.group(1).equalsIgnoreCase("0.0")) {
+                currLatitude = match.group(1);
+                currLongitude = match.group(2);
+            }
+            else // My position
+            {
+                sharedPref = this.getSharedPreferences(
+                        this.getString(R.string.yebela_keys), Context.MODE_PRIVATE);
+
+                currLatitude = sharedPref.getString(this.getString(R.string.latitude),"-4.4011293");
+                currLongitude = sharedPref.getString(this.getString(R.string.longitude),"15.2527045");
+            }
+        }
+        else { // Default lat long is Kinshasa
+            currLatitude = "-4.4011293";
+            currLongitude = "15.2527045";
+        }
 
         // Add a marker on my position and move the camera
         LatLng myPosition = new LatLng(Double.valueOf(currLatitude),Double.valueOf(currLongitude));
-        mMap.addMarker(new MarkerOptions().position(myPosition).title(getString(R.string.my_position)));
+        mMap.addMarker(new MarkerOptions().position(myPosition).title(getString(R.string.my_position)).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_near_me_white_24dp)));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition,14));
     }
 
