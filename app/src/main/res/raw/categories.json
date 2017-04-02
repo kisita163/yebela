@@ -1,201 +1,186 @@
 [
   {
-    "name": "Restoration",
+    "name": "Clothing & Shoes",
     "picture": "restaurant",
     "categories": [
       {
-        "name": "Bars",
+        "name": "Women",
         "picture": "bar_cafe"
       },
       {
-        "name": "Restaurants",
+        "name": "men",
         "picture": "restaurant_icon"
       },
       {
-        "name": "Bakeries",
+        "name": "Girls",
         "picture": "bakery_icon"
       },
       {
-        "name": "Foods",
+        "name": "Boys",
         "picture": "supermarket_icon"
       },
       {
-        "name": "Home deliveries",
+        "name": "Baby",
         "picture": "delivery_icon"
-      }
-    ]
-  },
-  {
-    "name": "Lodging",
-    "picture":"logement",
-    "categories": [
-      {
-        "name": "Hotels",
-        "picture": "hotel_icon"
-      },
-      {
-        "name": "Rental",
-        "picture": "rent_icon"
-      },
-      {
-        "name": "Sale",
-        "picture": "sale_icon"
-      },
-      {
-        "name": "Apartment hotels",
-        "picture": "apartment_icon"
-      }
-    ]
-  },
-  {
-    "name": "Events",
-    "picture":"evenements",
-    "categories": [
-      {
-        "name": "Festivals",
-        "picture": "festival_icon"
-      },
-      {
-        "name": "Sport meetings",
-        "picture": "sport_meeting_icon"
-      },
-      {
-        "name": "Conferences",
-        "picture": "conferences_icon"
-      },
-      {
-        "name": "Fashion shows",
-        "picture": "fashion_show_icon"
-      },
-      {
-        "name": "Concerts",
-        "picture": "concert_icon"
-      },
-      {
-        "name": "Expositions",
-        "picture": "exposition_icon"
-      },
-      {
-        "name": "Private sales",
-        "picture": "private_sale_icon"
-      }
-    ]
-  },
-  {
-    "name": "Culture",
-    "picture":"culture",
-    "categories": [
-      {
-        "name": "Museums",
-        "picture": "museum_icon"
-      },
-      {
-        "name": "Libraries & Bookstores",
-        "picture": "library_icon"
-      },
-      {
-        "name": "Theaters",
-        "picture": "theater_icon"
-      },
-      {
-        "name": "Crafts",
-        "picture": "craft_icon"
-      },
-      {
-        "name": "History",
-        "picture": "history_icon"
-      }
-    ]
-  },
-  {
-    "name": "Health",
-    "picture":"health1",
-    "categories": [
-      {
-        "name": "Pharmacies",
-        "picture": "pharmacy_icon"
-      },
-      {
-        "name": "Hospitals",
-        "picture": "hospital_icon"
-      },
-      {
-        "name": "General practitioners",
-        "picture": "home_physician_icon"
-      },
-      {
-        "name": "Traditional care",
-        "picture": "traditional_care_icon"
-      }
-    ]
-  },
-  {
-    "name": "Spare-time",
-    "picture":"loisirs_2",
-    "categories": [
-      {
-        "name": "Sport centers",
-        "picture": "sport_icon"
-      },
-      {
-        "name": "Night clubs",
-        "picture": "night_club_icon"
-      },
-      {
-        "name": "Shopping",
-        "picture": "shopping_icon"
-      },
-      {
-        "name": "Parcs",
-        "picture": "parc_icon"
-      },
-      {
-        "name": "Zoo",
-        "picture": "zoo_icon"
-      },
-      {
-        "name": "Amusement parcs",
-        "picture": "amusement_park_icon"
-      },
-      {
-        "name": "Dance school",
-        "picture": "dance_school_icon"
-      }
-    ]
-  },
-  {
-    "name": "Well-being",
-    "picture":"wellbeing1",
-    "categories": [
-      {
-        "name": "Hair salon",
-        "picture": "hair_salon_icon"
-      },
-      {
-        "name": "Beauty institute",
-        "picture": "beauty_institut"
-      },
-      {
-        "name": "Spa & massage",
-        "picture": "massage_icon"
       }
     ]
   },
 
   {
-    "name": "Transport",
+    "name": "Beauty",
+    "picture":"health1",
+    "categories": [
+      {
+        "name": "Skin care",
+        "picture": "pharmacy_icon"
+      },
+      {
+        "name": "Hair care",
+        "picture": "hospital_icon"
+      },
+      {
+        "name": "Makeup",
+        "picture": "home_physician_icon"
+      },
+      {
+        "name": "Men's Grooming",
+        "picture": "traditional_care_icon"
+      }
+    ]
+  },
+  {
+    "name": "Home, Garden & Tools",
+    "picture":"loisirs_2",
+    "categories": [
+      {
+        "name": "Kitchen & dining",
+        "picture": "sport_icon"
+      },
+      {
+        "name": "Lighting",
+        "picture": "night_club_icon"
+      },
+      {
+        "name": "Cooling & Air quality",
+        "picture": "shopping_icon"
+      }
+    ]
+  },
+
+  {
+    "name": "Electronics & Computers",
     "picture":"transport",
     "categories": [
       {
-        "name": "Taxi",
+        "name": "Phones",
         "picture": "taxi_icon"
       },
       {
-        "name": "Public transport",
+        "name": "Smart watches",
         "picture": "public_transport_icon"
       },
       {
-        "name": "Car rental",
+        "name": "Computers & Tablets",
+        "picture": "car_rental_icon"
+      },
+      {
+        "name": "Wireless speakers",
+        "picture": "car_rental_icon"
+      },
+      {
+        "name": "Video games",
+        "picture": "car_rental_icon"
+      }
+    ]
+  },
+
+  {
+  "name": "Bags & Accessories",
+  "picture":"transport",
+  "categories": [
+    {
+      "name": "Bags",
+      "picture": "taxi_icon"
+    },
+    {
+      "name": "Belts",
+      "picture": "public_transport_icon"
+    },
+    {
+      "name": "Watches",
+      "picture": "car_rental_icon"
+    },
+    {
+      "name": "Jewelries",
+      "picture": "car_rental_icon"
+    }
+  ]
+},
+
+  {
+    "name": "Books",
+    "picture":"transport",
+    "categories": [
+      {
+        "name": "Sciences & Medicine",
+        "picture": "taxi_icon"
+      },
+      {
+        "name": "Scholar books",
+        "picture": "public_transport_icon"
+      },
+      {
+        "name": "History & Geography",
+        "picture": "car_rental_icon"
+      },
+      {
+        "name": "Children",
+        "picture": "car_rental_icon"
+      },
+      {
+        "name": "Novels",
+        "picture": "car_rental_icon"
+      }
+    ]
+  },
+  {
+    "name": "Brands",
+    "picture":"transport",
+    "categories": [
+      {
+        "name": "Amazon",
+        "picture": "taxi_icon"
+      },
+      {
+        "name": "Gucci",
+        "picture": "public_transport_icon"
+      },
+      {
+        "name": "Mango",
+        "picture": "car_rental_icon"
+      },
+      {
+        "name": "Zara",
+        "picture": "car_rental_icon"
+      },
+      {
+        "name": "H&M",
+        "picture": "car_rental_icon"
+      },
+      {
+        "name": "Hugo Boss",
+        "picture": "car_rental_icon"
+      },
+      {
+        "name": "Louis Vuitton",
+        "picture": "car_rental_icon"
+      },
+      {
+        "name": "Ralph Lauren",
+        "picture": "car_rental_icon"
+      },
+      {
+        "name": "Sports Direct",
         "picture": "car_rental_icon"
       }
     ]

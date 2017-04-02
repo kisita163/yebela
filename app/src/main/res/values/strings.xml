@@ -37,7 +37,7 @@
     <string name="search_button">search_button</string>
     <string name="no_result">\'No result\'</string>
     <string name="search">Search</string>
-    <string name="other">Other</string>
+    <string name="other">Brands</string>
     <string name="near">Near from here</string>
     <string name="location_description">This service allow Yebela app to get the current user location</string>
     <string name="title_activity_maps">Map</string>

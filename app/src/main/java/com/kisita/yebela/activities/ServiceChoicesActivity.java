@@ -165,7 +165,7 @@ public class ServiceChoicesActivity extends AppCompatActivity implements BaseSli
                         }
                     }
                 }
-            } else if(i == choiceName.size() + 1){
+            } /*else if(i == choiceName.size() + 1){
                 if (v instanceof LinearLayout) {
                     for (int k = 0; k < ((LinearLayout) v).getChildCount(); k++) {
                         View m = ((LinearLayout) v).getChildAt(k);
@@ -184,7 +184,7 @@ public class ServiceChoicesActivity extends AppCompatActivity implements BaseSli
                         }
                     }
                 }
-            }else{
+            }*/else{
                 if (v instanceof LinearLayout) {
                     v.setVisibility(View.GONE);
                 }
