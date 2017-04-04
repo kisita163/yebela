@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.preference.SwitchPreference;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -106,7 +105,7 @@ public class ServicesActivity extends AppCompatActivity implements GoogleApiClie
         }
 
         if (id == R.id.search_icon) {
-            Intent search = new Intent(this, SearchActivity.class);
+            Intent search = new Intent(this, BrandsListActivity.class);
             startActivity(search);
             //onSearchRequested();
         }

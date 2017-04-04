@@ -27,7 +27,7 @@
   },
 
   {
-    "name": "Beauty",
+    "name": "Bags & Accessories",
     "picture":"health1",
     "categories": [
       {
@@ -95,7 +95,7 @@
   },
 
   {
-  "name": "Bags & Accessories",
+  "name": "Beauty",
   "picture":"transport",
   "categories": [
     {
@@ -142,8 +142,8 @@
         "picture": "car_rental_icon"
       }
     ]
-  },
-  {
+  }
+  /*{
     "name": "Brands",
     "picture":"transport",
     "categories": [
@@ -184,6 +184,6 @@
         "picture": "car_rental_icon"
       }
     ]
-  }
+  }*/
 
   ]

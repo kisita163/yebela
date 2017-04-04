@@ -2,9 +2,6 @@ package com.kisita.yebela.activities;
 
 import android.content.Intent;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -115,13 +112,13 @@ public class ServiceChoicesActivity extends AppCompatActivity implements BaseSli
     }
 
     private void set_layout_choices() {
-        final Intent searchList = new Intent(this,SearchActivity.class);
+        final Intent brandsList = new Intent(this,BrandsListActivity.class);
         final Intent map = new Intent(this,MapsActivity.class);
         String choice;
 
         GridLayout gridLayout = (GridLayout)findViewById(R.id.grid_layout);
         int service = getIntent().getIntExtra(getString(R.string.service_id),0);
-        searchList.putExtra(getString(R.string.service_id),service);
+        brandsList.putExtra(getString(R.string.service_id),service);
 
         for(int i=0 ; i < gridLayout.getChildCount() ; i++){
             final View v = gridLayout.getChildAt(i);
@@ -139,8 +136,8 @@ public class ServiceChoicesActivity extends AppCompatActivity implements BaseSli
                                 v.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        searchList.putExtra(getString(R.string.service_id), finalChoice);
-                                        startActivity(searchList);
+                                        brandsList.putExtra(getString(R.string.service_id), finalChoice);
+                                        startActivity(brandsList);
                                     }
                                 });
                             }
@@ -159,7 +156,7 @@ public class ServiceChoicesActivity extends AppCompatActivity implements BaseSli
                             v.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    startActivity(searchList);
+                                    startActivity(brandsList);
                                 }
                             });
                         }
@@ -265,7 +262,7 @@ public class ServiceChoicesActivity extends AppCompatActivity implements BaseSli
         }
 
         if(id == R.id.search_icon){
-            Intent search = new Intent(this,SearchActivity.class);
+            Intent search = new Intent(this,BrandsListActivity.class);
             startActivity(search);
             //onSearchRequested();
         }

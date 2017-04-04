@@ -103,7 +103,7 @@
             android:name=".activities.ServiceChoicesActivity"
             android:label="@string/title_activity_service_choices"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.SearchActivity">
+        <activity android:name=".activities.BrandsListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
